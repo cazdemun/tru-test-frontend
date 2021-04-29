@@ -35,7 +35,7 @@ export const loadingStates = {
           actions: assign({ userAddress: (_, event) => event.data })
         },
         onError: {
-          target: 'failure',
+          target: 'permissionDenied',
           actions: assign({ error: 'Please refresh the page and accept Metamask permission' })
         }
       }
@@ -65,6 +65,11 @@ export const loadingStates = {
           target: 'failure',
           actions: assign({ error: (_, event) => event.data })
         }
+      }
+    },
+    permissionDenied: {
+      on: {
+        'RETRY': 'checkingWeb3'
       }
     },
     failure: {},

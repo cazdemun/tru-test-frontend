@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useMachine } from '@xstate/react';
 import { appMachine } from '../machines/mainMachine';
-import { Button } from 'antd';
+import { Layout, Button } from 'antd';
+import Loading from './Loading';
+
+const { Content } = Layout
 
 const Main = () => {
   const [current, send] = useMachine(appMachine)
@@ -15,26 +18,32 @@ const Main = () => {
     // });
   }, [current.context.web3])
 
-  return (<>
-    <pre>{JSON.stringify({
-      ...current.context,
-      web3: current.context.web3 ? true : null
-    }, null, 2)}</pre>
-    <pre>{JSON.stringify(current.value, null, 2)}</pre>
-    {current.matches('register.idle') ?
-      <Button onClick={() => send('REGISTER')}>Register</Button>
-      : null}
-    {current.matches('main.idle') ?
-      <>
-        <Button onClick={() => send('DEPOSIT')}>
-          Deposit 0.1 ether
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <pre>{JSON.stringify({
+        ...current.context,
+        web3: current.context.web3 ? true : null
+      }, null, 2)}</pre>
+      <pre>{JSON.stringify(current.value, null, 2)}</pre>
+      <Content>
+        {current.matches('loading') ?
+          <Loading {...{ current, send }} /> : null
+        }
+        {current.matches('register.idle') ?
+          <Button onClick={() => send('REGISTER')}>Register</Button>
+          : null}
+        {current.matches('main.idle') ?
+          <>
+            <Button onClick={() => send('DEPOSIT')}>
+              Deposit 0.1 ether
         </Button>
-        <Button onClick={() => send('WITHDRAW')}>
-          Withdraw 0.05 ethers
+            <Button onClick={() => send('WITHDRAW')}>
+              Withdraw 0.05 ethers
         </Button>
-      </>
-      : null}
-  </>
+          </>
+          : null}
+      </Content>
+    </Layout>
   );
 }
 
