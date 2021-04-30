@@ -42,6 +42,7 @@ const Bank = ({ current, send }) => {
                 },
                 {
                   validator: (_, value) => {
+                    if (value === undefined) return Promise.resolve()
                     const toWithdraw = BigNumber(current.context.web3.utils.toWei(value.toString()).toString());
                     return toWithdraw.gt(BigNumber(0)) ?
                       Promise.resolve() : Promise.reject(new Error('Amount should be more than zero!'))
@@ -73,6 +74,7 @@ const Bank = ({ current, send }) => {
                   },
                   {
                     validator: (_, value) => {
+                      if (value === undefined) return Promise.resolve()
                       const toWithdraw = BigNumber(current.context.web3.utils.toWei(value.toString()).toString());
                       const currentFunds = BigNumber(current.context.funds.toString())
                       return currentFunds.gte(toWithdraw) ?
@@ -81,6 +83,7 @@ const Bank = ({ current, send }) => {
                   },
                   {
                     validator: (_, value) => {
+                      if (value === undefined) return Promise.resolve()
                       const toWithdraw = BigNumber(current.context.web3.utils.toWei(value.toString()).toString());
                       return toWithdraw.gt(BigNumber(0)) ?
                         Promise.resolve() : Promise.reject(new Error('Amount should be more than zero!'))

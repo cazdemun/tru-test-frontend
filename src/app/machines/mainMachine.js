@@ -8,8 +8,10 @@ export const appMachine = Machine({
   context: {
     web3: null,
     error: null,
-    network: 'test',
-    factoryAddress: '0x118f23fEE5b9C44B794c0d77c581c1b02D4794D1',
+    // network: 'test',
+    // factoryAddress: '0x118f23fEE5b9C44B794c0d77c581c1b02D4794D1',
+    network: 'ropsten',
+    factoryAddress: '0x2e95B50924bCe79E67e31A3c111C3669d5741F82',
     piggyBankAddress: null,
     userAddress: null,
     funds: null,
