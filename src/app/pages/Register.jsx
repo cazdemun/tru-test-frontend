@@ -20,7 +20,6 @@ const Register = ({ current, send }) => {
         display: 'flex', flexDirection: 'column', alignItems: 'center',
         minHeight: '100vh', justifyContent: 'center'
       }}>
-      {current.matches}
       <h1 style={{ margin: '0px 0px 50px 0px' }}>
         You don't have a Piggy Bank Account, please register in the form below.
       </h1>

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useMachine } from '@xstate/react';
 import { appMachine } from '../machines/mainMachine';
-import { Layout, Button } from 'antd';
+import { Layout } from 'antd';
 import Loading from './Loading';
 import Register from './Register';
+import Bank from './Bank';
 
 const { Content } = Layout
 
@@ -21,27 +22,13 @@ const Main = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <pre>{JSON.stringify({
-        ...current.context,
-        web3: current.context.web3 ? true : null
-      }, null, 2)}</pre>
-      <pre>{JSON.stringify(current.value, null, 2)}</pre>
       <Content>
         {current.matches('loading') ?
-          <Loading {...{ current, send }} /> : null
-        }
+          <Loading {...{ current, send }} /> : null}
         {current.matches('register') ?
           <Register {...{ current, send }} /> : null}
-        {current.matches('main.idle') ?
-          <>
-            <Button onClick={() => send('DEPOSIT')}>
-              Deposit 0.1 ether
-        </Button>
-            <Button onClick={() => send('WITHDRAW')}>
-              Withdraw 0.05 ethers
-        </Button>
-          </>
-          : null}
+        {current.matches('main') ?
+          <Bank {...{ current, send }} /> : null}
       </Content>
     </Layout>
   );

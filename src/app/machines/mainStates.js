@@ -26,7 +26,8 @@ export const mainStates = {
     placingFunds: {
       invoke: {
         src: (context, event) => depositFunds(context.web3, context.userAddress,
-          context.piggyBankAddress, context.web3.utils.toWei('0.1')),
+          context.piggyBankAddress, event.data),
+        // context.piggyBankAddress, context.web3.utils.toWei('0.1')),
         onDone: {
           target: 'idle',
           actions: assign({ funds: (_, event) => event.data })
@@ -40,7 +41,8 @@ export const mainStates = {
     withdrawingFunds: {
       invoke: {
         src: (context, event) => withdrawFunds(context.web3, context.userAddress,
-          context.piggyBankAddress, context.web3.utils.toWei('0.05')),
+          context.piggyBankAddress, event.data),
+        // context.piggyBankAddress, context.web3.utils.toWei('0.05')),
         onDone: {
           target: 'idle',
           actions: assign({ funds: (_, event) => event.data })
@@ -51,6 +53,8 @@ export const mainStates = {
         }
       }
     },
-    failure: {}
+    failure: {
+      'always': 'idle'
+    }
   }
 }
