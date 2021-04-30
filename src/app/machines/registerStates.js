@@ -10,6 +10,7 @@ export const registerStates = {
       }
     },
     deployingPiggyBankAccount: {
+      entry: [() => console.log('is this valid')],
       invoke: {
         src: (context) => deployPiggyBankAccount(context.web3, context.userAddress, context.factoryAddress),
         onDone: {
@@ -17,7 +18,7 @@ export const registerStates = {
           actions: assign({ piggyBankAddress: (_, event) => event.data })
         },
         onError: {
-          target: 'failure',
+          target: 'idle',
           actions: assign({ error: (_, event) => event.data })
         }
       }

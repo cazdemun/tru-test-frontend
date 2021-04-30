@@ -3,6 +3,7 @@ import { useMachine } from '@xstate/react';
 import { appMachine } from '../machines/mainMachine';
 import { Layout, Button } from 'antd';
 import Loading from './Loading';
+import Register from './Register';
 
 const { Content } = Layout
 
@@ -29,9 +30,8 @@ const Main = () => {
         {current.matches('loading') ?
           <Loading {...{ current, send }} /> : null
         }
-        {current.matches('register.idle') ?
-          <Button onClick={() => send('REGISTER')}>Register</Button>
-          : null}
+        {current.matches('register') ?
+          <Register {...{ current, send }} /> : null}
         {current.matches('main.idle') ?
           <>
             <Button onClick={() => send('DEPOSIT')}>

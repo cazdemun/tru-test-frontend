@@ -12,7 +12,8 @@ export const appMachine = Machine({
     factoryAddress: '0x118f23fEE5b9C44B794c0d77c581c1b02D4794D1',
     piggyBankAddress: null,
     userAddress: null,
-    funds: null
+    funds: null,
+    email: null
   },
   initial: 'loading',
   states: {
